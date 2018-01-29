@@ -3,6 +3,54 @@
 
 ;;;; 1. Introduction to Lisp
 
+(defn last-name
+  "Select the last name from a name represented as a list."
+  [name]
+  (last name))
+
+(defn first-name
+  "Select the first name from a name represented as a list."
+  [name]
+  (first name))
+
+(def titles
+  "A list of titles that can appear at the start of a name."
+  '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General))
+
+(defn first-name'
+  "Select the first name from a name represented as a list."
+  [name]
+  (if (some #(= % (first name)) titles)
+    (first-name' (rest name))
+    (first name)))
+
+(defn mappend
+  "Apply fn to each element of list and append the results."
+  [f coll]
+  (apply concat (map f coll)))
+
+(defn self-and-double [x]
+  (list x (+ x x)))
+
+(defn number-and-negation
+  "If x is a number, return a list of x and -x."
+  [x]
+  (when (number? x)
+    (list x (- x))))
+
+(defn numbers-and-negations
+  "Given a list, return only the numbers and their negations."
+  [input]
+  (mappend number-and-negation input))
+
+(defn mappend'
+  "Apply fn to each element of list and append the results."
+  [f coll]
+  (if (empty? coll)
+    ()
+    (concat (f (first coll))
+            (mappend' f (rest coll)))))
+
 ;; Exercise 1.1
 ;; TODO
 
