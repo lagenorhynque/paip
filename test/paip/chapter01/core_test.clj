@@ -5,7 +5,9 @@
 ;;;; 1. Introduction to Lisp
 
 ;; Exercise 1.1
-;; TODO
+(t/deftest last-name'-test
+  (t/is (= 'Morgan (sut/last-name' '(Rex Morgan MD))))
+  (t/is (= 'Downey (sut/last-name' '(Morton Downey, Jr.)))))
 
 ;; Exercise 1.2
 (t/deftest power-test

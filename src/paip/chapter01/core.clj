@@ -52,7 +52,15 @@
             (mappend' f (rest coll)))))
 
 ;; Exercise 1.1
-;; TODO
+(def suffixes
+  '(JD MD DO PharmD Sr. Jr.))
+
+(defn last-name'
+  "Select the last name from a name represented as a list."
+  [name]
+  (if (some #(= % (last name)) suffixes)
+    (last-name' (butlast name))
+    (last name)))
 
 ;; Exercise 1.2
 (defn power [x n]
