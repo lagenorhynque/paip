@@ -27,7 +27,8 @@
 (defn mappend
   "Apply fn to each element of list and append the results."
   [f coll]
-  (apply concat (map f coll)))
+  ;; (apply concat (map f coll))
+  (mapcat f coll))
 
 (defn self-and-double [x]
   (list x (+ x x)))
