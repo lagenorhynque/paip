@@ -191,4 +191,10 @@
 ;; TODO
 
 ;; Exercise 2.4
-;; TODO
+(defn cross-product [f xs ys]
+  (mapcat (fn [y]
+            (map (fn [x] (f x y)) xs))
+          ys))
+
+(defn combine-all' [xs ys]
+  (cross-product concat xs ys))
