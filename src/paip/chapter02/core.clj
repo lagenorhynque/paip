@@ -188,7 +188,20 @@
 (count (generate-all 'sentence))
 
 ;; Exercise 2.3
-;; TODO
+(def simple-japanese-grammar
+  '((sentence -> (subject predicate))
+    (subject -> (noun-phrase ParticleForSubject))
+    (predicate -> (noun-phrase ParticleForObject Verb))
+    (noun-phrase -> (NounModifier Noun))
+    (NounModifier -> その ある)
+    (Noun -> 男 ボール 女 テーブル)
+    (ParticleForSubject -> が)
+    (ParticleForObject -> を)
+    (Verb -> 打った 取った 見た 好んだ)))
+
+(reset! grammar simple-japanese-grammar)
+
+(generate 'sentence)
 
 ;; Exercise 2.4
 (defn cross-product [f xs ys]
