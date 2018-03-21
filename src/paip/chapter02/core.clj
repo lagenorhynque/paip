@@ -88,9 +88,10 @@
 (defn generate
   "Generate a random sentence or phrase."
   [phrase]
-  (cond (list? phrase) (mapcat generate phrase)
-        (rewrites phrase) (generate (rand-nth (rewrites phrase)))
-        :else (list phrase)))
+  (cond
+    (list? phrase) (mapcat generate phrase)
+    (rewrites phrase) (generate (rand-nth (rewrites phrase)))
+    :else (list phrase)))
 
 (generate 'sentence)
 (generate 'noun-phrase)
@@ -110,9 +111,10 @@
   "Generate a random sentence or phrase."
   [phrase]
   (let [choices (atom nil)]
-    (cond (list? phrase) (mapcat generate'' phrase)
-          (reset! choices (rewrites phrase)) (generate'' (rand-nth @choices))
-          :else (list phrase))))
+    (cond
+      (list? phrase) (mapcat generate'' phrase)
+      (reset! choices (rewrites phrase)) (generate'' (rand-nth @choices))
+      :else (list phrase))))
 
 ;; Exercise 2.2
 (defn non-terminal? [phrase]
@@ -121,9 +123,10 @@
 (defn generate'''
   "Generate a random sentence or phrase."
   [phrase]
-  (cond (list? phrase) (mapcat generate''' phrase)
-        (non-terminal? phrase) (generate''' (rand-nth (rewrites phrase)))
-        :else (list phrase)))
+  (cond
+    (list? phrase) (mapcat generate''' phrase)
+    (non-terminal? phrase) (generate''' (rand-nth (rewrites phrase)))
+    :else (list phrase)))
 
 ;;; 2.4
 
@@ -155,10 +158,11 @@
   "Generate a random sentence or phrase,
   with a complete parse tree."
   [phrase]
-  (cond (list? phrase) (map generate-tree phrase)
-        (rewrites phrase) (cons phrase
-                                (generate-tree (rand-nth (rewrites phrase))))
-        :else (list phrase)))
+  (cond
+    (list? phrase) (map generate-tree phrase)
+    (rewrites phrase) (cons phrase
+                            (generate-tree (rand-nth (rewrites phrase))))
+    :else (list phrase)))
 
 (generate-tree 'sentence)
 
@@ -176,11 +180,12 @@
 (defn generate-all
   "Generate a list of all possible expansions of this phrase."
   [phrase]
-  (cond (nil? phrase) (list nil)
-        (list? phrase) (combine-all (generate-all (first phrase))
-                                    (generate-all (next phrase)))
-        (rewrites phrase) (mapcat generate-all (rewrites phrase))
-        :else (list (list phrase))))
+  (cond
+    (nil? phrase) (list nil)
+    (list? phrase) (combine-all (generate-all (first phrase))
+                                (generate-all (next phrase)))
+    (rewrites phrase) (mapcat generate-all (rewrites phrase))
+    :else (list (list phrase))))
 
 (generate-all 'Article)
 (generate-all 'Noun)

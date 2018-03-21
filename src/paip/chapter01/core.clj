@@ -200,31 +200,35 @@ p
 (defn last-name'
   "Select the last name from a name represented as a list."
   [name]
-  (if (some #(= % (last name)) suffixes)
-    (last-name' (butlast name))
-    (last name)))
+  (let [lname (last name)]
+    (if (some #(= % lname) suffixes)
+      (last-name' (butlast name))
+      lname)))
 
 ;; Exercise 1.2
 (defn power [x n]
-  (cond (zero? n) 1
-        (even? n) (expt (power x (/ n 2)) 2)
-        :else (* x (power x (dec n)))))
+  (cond
+    (zero? n) 1
+    (even? n) (expt (power x (/ n 2)) 2)
+    :else (* x (power x (dec n)))))
 
 ;; Exercise 1.3
 (def atom? (complement sequential?))
 
 (defn count-atoms [expr]
-  (cond (atom? expr) 1
-        (empty? expr) 0
-        :else (+ (count-atoms (first expr))
-                 (count-atoms (rest expr)))))
+  (cond
+    (atom? expr) 1
+    (empty? expr) 0
+    :else (+ (count-atoms (first expr))
+             (count-atoms (rest expr)))))
 
 ;; Exercise 1.4
 (defn count-anywhere [x expr]
-  (cond (= x expr) 1
-        (atom? expr) 0
-        :else (+ (count-anywhere x (first expr))
-                 (count-anywhere x (next expr)))))
+  (cond
+    (= x expr) 1
+    (atom? expr) 0
+    :else (+ (count-anywhere x (first expr))
+             (count-anywhere x (next expr)))))
 
 ;; Exercise 1.5
 (defn dot-product [xs ys]
