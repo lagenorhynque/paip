@@ -193,6 +193,8 @@ p
 
 ;;; 1.10
 
+;;; 1.11
+
 ;; Exercise 1.1
 (def suffixes
   '(JD MD DO PharmD Sr. Jr.))

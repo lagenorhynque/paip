@@ -8,7 +8,6 @@
                  [org.clojure/math.numeric-tower "0.0.4"]]
   :profiles {:dev {:plugins [[jonase/eastwood "0.2.5"]
                              [lein-eftest "0.4.1"]
-                             [lein-cljfmt "0.5.7"]
-                             [lein-kibit "0.1.6"]]
-                   :aliases {"lint" ^{:doc "Execute cljfmt check, eastwood and kibit."}
-                             ["do" ["cljfmt" "check"] ["eastwood"] ["kibit"]]}}})
+                             [lein-cljfmt "0.5.7"]]
+                   :aliases {"lint" ^{:doc "Execute cljfmt check and eastwood."}
+                             ["do" ["cljfmt" "check"] ["eastwood"]]}}})

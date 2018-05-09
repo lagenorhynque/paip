@@ -192,6 +192,8 @@
 (generate-all 'noun-phrase)
 (count (generate-all 'sentence))
 
+;;; 2.7
+
 ;; Exercise 2.3
 (def simple-japanese-grammar
   '((sentence -> (subject predicate))
