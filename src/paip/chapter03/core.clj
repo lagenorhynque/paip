@@ -296,7 +296,21 @@ b'
 ;; list*
 
 ;; Exercise 3.3
-;; n/a
+(declare pr-next)
+
+(defn dprint
+  "Print an expression in dotted pair notation."
+  [x]
+  (if (not (sequential? x))
+    (print x)
+    (do (print "(")
+        (dprint (first x))
+        (pr-next (next x))
+        (print ")"))))
+
+(defn pr-next [x]
+  (print " . ")
+  (dprint x))
 
 ;; Exercise 3.4
 ;; n/a
@@ -373,7 +387,63 @@ b'
 ;;; 3.10
 
 ;; Exercise 3.5
-;; TODO
+(defprotocol INode
+  (node-name [this])
+  (node-yes [this])
+  (node-no [this])
+  (set-yes! [this yes-node])
+  (set-no! [this no-node]))
+
+(deftype Node [name
+               ^:volatile-mutable yes
+               ^:volatile-mutable no]
+  INode
+  (node-name [_] name)
+  (node-yes [_] yes)
+  (node-no [_] no)
+  (set-yes! [this yes-node]
+    (set! yes yes-node))
+  (set-no! [this no-node]
+    (set! no no-node))
+  Object
+  (toString [_]
+    (str "(node :name " name ")")))
+
+(defn make-node [& {:keys [name yes no]
+                    :or {yes nil
+                         no nil}}]
+  (Node. name yes no))
+
+(def db
+  (make-node :name "animal"
+             :yes (make-node :name "mammal")
+             :no (make-node :name "vegetable"
+                            :no (make-node :name "mineral"))))
+
+(defn give-up []
+  (print "I give up - what is it? ")
+  (flush)
+  (let [answer (read)]
+    (println answer)
+    (make-node :name answer)))
+
+(defn questions
+  ([] (questions db))
+  ([node]
+   (printf "Is it a %s? " (node-name node))
+   (flush)
+   (let [yes-no (read)]
+     (println yes-no)
+     (case (clojure.string/lower-case yes-no)
+       ("y" "yes") (if (node-yes node)
+                     (questions (node-yes node))
+                     (set-yes! node (give-up)))
+       ("n" "no") (if (node-no node)
+                    (questions (node-no node))
+                    (set-no! node (give-up)))
+       "it" (println "Aha!")
+       (do (println "Reply with YES, NO, or IT if I have guessed it.")
+           (questions node))))))
 
 ;;; 3.11
 \c
