@@ -643,4 +643,4 @@ nil
 ;; n/a
 
 ;; Exercise 3.12
-;; TODO
+#_(clojure.pprint/cl-format true "~@(~{~a~^ ~}.~)" '(this is a test))
