@@ -590,6 +590,10 @@ nil
   "Ask the user a series of math problems."
   ([]
    (math-quiz' '+ 100 10))
+  ([op]
+   (math-quiz' op 100 10))
+  ([op range]
+   (math-quiz' op range 10))
   ([op range n]
    (dotimes [i n]
      (problem (rand-int range) op (rand-int range)))))
