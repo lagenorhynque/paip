@@ -1,5 +1,6 @@
 (ns paip.chapter03.core
-  (:require [clojure.math.numeric-tower :refer [abs expt round sqrt]]))
+  (:require [clojure.math.numeric-tower :refer [abs expt round sqrt]])
+  (:refer-clojure :exclude [test]))
 
 ;;;; 3. Overview of Lisp
 
@@ -500,7 +501,7 @@ nil
   (assert (number? x))
   (* x x))
 
-(defn f [n] (dotimes [_ n] nil))
+#_(defn f [n] (dotimes [_ n] nil))
 #_(time (f 10000))
 
 ;;; 3.15
